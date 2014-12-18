@@ -4,11 +4,13 @@
     </p>
 
     <p>
-        <%= f.label :player %><br>
-        <%= f.text_field :player %>
+        <%= f.label :username %><br>
+        <%= f.text_field :username %>
     </p>
 
     <p>
         <%= f.submit %>
     </p>
 <% end %>
+
+<%= link_to 'Back', players_path %>

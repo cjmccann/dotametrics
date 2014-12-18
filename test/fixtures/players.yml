@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  username: MyString
+  heroes_id: 
+  matches_id: 
+  stats_id: 
+
+two:
+  username: MyString
+  heroes_id: 
+  matches_id: 
+  stats_id: 
