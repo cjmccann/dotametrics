@@ -1,0 +1,14 @@
+<%= form_for :player, url: players_path do |f| %>
+    <p>
+        <%= f.label :title %><br>
+    </p>
+
+    <p>
+        <%= f.label :player %><br>
+        <%= f.text_field :player %>
+    </p>
+
+    <p>
+        <%= f.submit %>
+    </p>
+<% end %>
