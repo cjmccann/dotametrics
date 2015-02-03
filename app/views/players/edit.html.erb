@@ -1,5 +1,6 @@
-<%= form_for :player, url: players_path do |f| %>
+<h1>Editing Player</h1>
 
+<%= form_for :player, url: player_path(@player), method: :patch do |f| %>
     <% if @player.errors.any? %>
         <div id="error_explanation">
             <h2>
@@ -14,19 +15,14 @@
         </div>
     <% end %>
 
-
     <p>
-        <%= f.label :title %><br>
+    <%= f.label :username %><br>
+    <%= f.text_field :username %>
     </p>
 
     <p>
-        <%= f.label :username %><br>
-        <%= f.text_field :username %>
-    </p>
-
-    <p>
-        <%= f.submit %>
+    <%= f.submit %>
     </p>
 <% end %>
 
-<%= link_to 'Back', root_path %>
+<% link_to 'Back', players_path %>
