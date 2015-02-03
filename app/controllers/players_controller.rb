@@ -19,8 +19,18 @@ class PlayersController < ApplicationController
 	  #render plain: params[:player].inspect
 	  @player = Player.new(player_params)
 
+	  url = URI.parse("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=C99E2FDFEFD565DEA13ACCF46EE9C170&player_name=#{params[:player][:username]}")
+	  
+    req = Net::HTTP::Get.new(url.to_s)
+    #res = Net::HTTP.start(url.host, url.port) { |http|
+    #  http.request(req)
+    #}
+
+
     if @player.save
-      redirect_to @player
+      #render plain: params[:player][:username]
+      #redirect_to @player
+      render plain: url.to_s
     else
       render 'new'
     end
