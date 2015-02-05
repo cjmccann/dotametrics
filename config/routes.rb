@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
 	root 'welcome#index'
 
+	post 'auth/steam/callback' => 'welcome#auth_callback'
+
 	resources :matches
 	resources :players
 end

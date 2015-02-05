@@ -1,5 +1,19 @@
-<h1> YO RAILS WUT UP </h1>
+<h1> Hello! </h1>
+
+<% if session.key? :current_user %>
+    <h3>Current user: <%= session[:current_user]['nickname'] %> </h3>
+    <h4>Steam ID: <%= session[:current_user]['uid'] %> </h4>
+    <%= image_tag session[:current_user]['image'] %>
+    <br>
+<% end %>
+
+<ul>
+    <% @matchlist.each do |match| %>
+        <li><% Date.striptime(match['start_time'].to_s, '%s').to_formatted_s(:rfc822) %> - <%= match['match_id'] %></li>
+    <% end %>
+</ul>
+<hr>
 <%= link_to 'All Players', controller: 'players' %>
 <%= link_to 'New Player', new_player_path %>
-
-
+<br>
+<%= link_to image_tag("http://cdn.steamcommunity.com/public/images/signinthroughsteam/sits_large_noborder.png"), '/auth/steam' %>
