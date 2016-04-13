@@ -2,12 +2,8 @@
 
 one:
   username: MyString
-  heroes_id: 
-  matches_id: 
-  stats_id: 
+  steamid: MyString
 
 two:
   username: MyString
-  heroes_id: 
-  matches_id: 
-  stats_id: 
+  steamid: MyString

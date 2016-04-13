@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141218023525) do
+ActiveRecord::Schema.define(version: 20160413033757) do
 
   create_table "hero_records", force: true do |t|
     t.datetime "created_at"
@@ -29,17 +29,11 @@ ActiveRecord::Schema.define(version: 20141218023525) do
   end
 
   create_table "players", force: true do |t|
-    t.string   "name"
-    t.integer  "heroes_id"
-    t.integer  "matches_id"
-    t.integer  "stats_id"
+    t.string   "username"
+    t.string   "steamid"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "players", ["heroes_id"], name: "index_players_on_heroes_id"
-  add_index "players", ["matches_id"], name: "index_players_on_matches_id"
-  add_index "players", ["stats_id"], name: "index_players_on_stats_id"
 
   create_table "stats", force: true do |t|
     t.datetime "created_at"

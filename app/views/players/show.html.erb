@@ -1,6 +1,10 @@
 <p>
-    <strong>Player:</strong>
-    <%= @player.username %>
+    <strong>Username:</strong>
+    <%= @player.username || 'Unknown' %>
+</p>
+<p>
+    <strong>SteamID:</strong>
+    <%= @player.steamid %>
 </p>
 
 <%= link_to 'Back', players_path %>

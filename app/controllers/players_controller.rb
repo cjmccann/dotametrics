@@ -16,44 +16,32 @@ class PlayersController < ApplicationController
   end
 
 	def create
-	  #render plain: params[:player].inspect
-	  @player = Player.new(player_params)
-	  url = URI.parse("http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=#{ENV['STEAM_WEB_API_KEY']}&vanityurl=#{params[:player][:name]}")
+	  if params[:player][:username].empty?
+      steamid = params[:player][:steamid]
+    else
+      username = params[:player][:username]
+      
+      url = URI.parse("https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=#{ENV['STEAM_WEB_API_KEY']}&vanityurl=#{params[:player][:username]}")
 
-    #render plain: url
-    http = Net::HTTP.new(url.host, url.port)
+      http = Net::HTTP.new(url.host, url.port)
+      http.use_ssl = true
+      http.ssl_version = :SSLv23
 
-    req = Net::HTTP::Get.new(url.to_s)
-    res = http.start { |http|
-      http.request(req)
-    }
+      req = Net::HTTP::Get.new(url.to_s)
+      res = http.start { |http|
+        http.request(req)
+      }
 
-    #render plain: res.body
+      steamid = JSON.load(res.body)['response']['steamid']
+    end
 
-	  url = URI.parse("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=#{ENV['STEAM_WEB_API_KEY']}&player_name=#{params[:player][:name]}")
-
-    http = Net::HTTP.new(url.host, url.port)
-    http.use_ssl = true
-    http.ssl_version = :SSLv23
-
-    req = Net::HTTP::Get.new(url.to_s)
-    res = http.start { |http|
-      http.request(req)
-    }
-
-    #render plain: res.body
-
+	  @player = Player.new( {:username => username, :steamid => steamid } )
 
     if @player.save
-      #render plain: params[:player][:username]
       redirect_to @player
-      #render plain: url.to_s
     else
       render 'new'
     end
-
-	  #puts @player.save
-	  #redirect_to @player
   end
 
   def update
@@ -71,7 +59,7 @@ class PlayersController < ApplicationController
 
   private
     def player_params
-      params.require(:player).permit(:name)
+      params.require(:player).permit(:username)
+      params.require(:player).permit(:steamid)
     end
-  
 end
