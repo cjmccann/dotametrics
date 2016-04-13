@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20141218023525) do
   end
 
   create_table "players", force: true do |t|
-    t.string   "username"
+    t.string   "name"
     t.integer  "heroes_id"
     t.integer  "matches_id"
     t.integer  "stats_id"

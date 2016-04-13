@@ -9,7 +9,7 @@
 
 <ul>
     <% @matchlist.each do |match| %>
-        <li><% Date.striptime(match['start_time'].to_s, '%s').to_formatted_s(:rfc822) %> - <%= match['match_id'] %></li>
+        <li><%= Date.strptime(match['start_time'].to_s, '%s').to_formatted_s(:rfc822) %> - <%= match['match_id'] %></li>
     <% end %>
 </ul>
 <hr>

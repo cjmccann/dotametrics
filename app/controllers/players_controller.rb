@@ -18,10 +18,9 @@ class PlayersController < ApplicationController
 	def create
 	  #render plain: params[:player].inspect
 	  @player = Player.new(player_params)
+	  url = URI.parse("http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=#{ENV['STEAM_WEB_API_KEY']}&vanityurl=#{params[:player][:name]}")
 
-	  url = URI.parse("http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=C99E2FDFEFD565DEA13ACCF46EE9C170&vanityurl=#{params[:player][:username]}")
-
-    render plain: url
+    #render plain: url
     http = Net::HTTP.new(url.host, url.port)
 
     req = Net::HTTP::Get.new(url.to_s)
@@ -31,11 +30,11 @@ class PlayersController < ApplicationController
 
     #render plain: res.body
 
-	  url = URI.parse("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=C99E2FDFEFD565DEA13ACCF46EE9C170&player_name=#{params[:player][:username]}")
+	  url = URI.parse("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=#{ENV['STEAM_WEB_API_KEY']}&player_name=#{params[:player][:name]}")
 
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true
-    http.ssl_version = :SSLv3
+    http.ssl_version = :SSLv23
 
     req = Net::HTTP::Get.new(url.to_s)
     res = http.start { |http|
@@ -47,7 +46,7 @@ class PlayersController < ApplicationController
 
     if @player.save
       #render plain: params[:player][:username]
-      #redirect_to @player
+      redirect_to @player
       #render plain: url.to_s
     else
       render 'new'
@@ -72,7 +71,7 @@ class PlayersController < ApplicationController
 
   private
     def player_params
-      params.require(:player).permit(:username)
+      params.require(:player).permit(:name)
     end
   
 end
