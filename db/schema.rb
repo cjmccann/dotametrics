@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160413033757) do
+ActiveRecord::Schema.define(version: 20160413053238) do
 
   create_table "hero_records", force: true do |t|
     t.datetime "created_at"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20160413033757) do
   end
 
   create_table "matches", force: true do |t|
+    t.string   "match_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

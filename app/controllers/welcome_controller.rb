@@ -27,6 +27,8 @@ class WelcomeController < ApplicationController
                                :image    => auth.info['image'],
                                :uid      => auth.uid }
 
+	  @player = Player.new( {:username => auth.info['nickname'], :steamid => auth.uid } )
+
     redirect_to root_url
   end
 end
